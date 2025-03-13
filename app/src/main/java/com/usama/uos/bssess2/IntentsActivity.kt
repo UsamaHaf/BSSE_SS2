@@ -42,6 +42,7 @@ class IntentsActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS), 100)
          } else {
 
+
             val sendPI : PendingIntent = PendingIntent.getBroadcast(this , 0 , Intent("SMS_SENT") , PendingIntent.FLAG_IMMUTABLE)
             SmsManager.getDefault().sendTextMessage(strPhone, null , strMessage , sendPI , null)
 
