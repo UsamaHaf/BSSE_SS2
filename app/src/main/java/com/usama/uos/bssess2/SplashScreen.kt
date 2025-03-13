@@ -12,7 +12,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
       Handler().postDelayed(Runnable {
 
-         startActivity(Intent(this@SplashScreenActivity , MenusActivity::class.java))
+         startActivity(Intent(this@SplashScreenActivity , IntentsActivity::class.java))
 
       }, 3000)
 
