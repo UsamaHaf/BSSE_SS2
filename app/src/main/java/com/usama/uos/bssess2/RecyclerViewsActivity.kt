@@ -14,8 +14,8 @@ class RecyclerViewsActivity : AppCompatActivity() {
    lateinit var rvGmail:RecyclerView
    lateinit var gmailArrayList: ArrayList<GmailModel>
 
-   var useDPArray = arrayOf(R.drawable.more , R.drawable.user , R.drawable.background)
-   var userNameArray = arrayOf("Ahitsham" , "Kashif" , "BSSE 4th SS2")
+   var useDPArray = arrayOf( R.drawable.user ,R.drawable.more , R.drawable.background)
+   var userNameArray = arrayOf("Abid Rafique" , "Usman" , "BSSE 4th SS2")
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
