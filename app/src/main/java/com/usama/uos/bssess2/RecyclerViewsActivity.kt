@@ -1,15 +1,19 @@
 package com.usama.uos.bssess2
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.usama.uos.bssess2.Adapter.GmailAdapter
+import com.usama.uos.bssess2.Interfaces.GmailInterface
 import com.usama.uos.bssess2.Models.GmailModel
 
-class RecyclerViewsActivity : AppCompatActivity() {
+class RecyclerViewsActivity : AppCompatActivity() , GmailInterface {
 
    lateinit var rvGmail:RecyclerView
    lateinit var gmailArrayList: ArrayList<GmailModel>
@@ -33,11 +37,22 @@ class RecyclerViewsActivity : AppCompatActivity() {
 
       if(gmailArrayList != null){
 
-         val gmailAdapter = GmailAdapter(gmailArrayList , this@RecyclerViewsActivity)
+         val gmailAdapter = GmailAdapter(gmailArrayList , this@RecyclerViewsActivity , this)
          rvGmail.adapter = gmailAdapter
 
       }
       
+
+
+   }
+
+   override fun gmailItemClickListener(view: View, gmailModel: GmailModel, position: Int) {
+
+      //Toast.makeText(this@RecyclerViewsActivity , gmailModel.txtUserName , Toast.LENGTH_LONG).show()
+
+      val intent = Intent(this@RecyclerViewsActivity , HomePageActivity::class.java)
+      intent.putExtra("TestData" , gmailModel.txtUserName)
+      startActivity(intent)
 
 
    }
