@@ -4,64 +4,41 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".LoginActivity">
 
     <TextView
-        android:id="@+id/mainText"
+        android:id="@+id/mainTextLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="@string/enter_credentials_to_login"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_margin="12dp"
+        android:text="Login Activity"
+        android:textSize="36sp" />
 
-    <RelativeLayout
-        android:id="@+id/inputLayout"
+    <EditText
+        android:id="@+id/loginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_below="@id/mainTextLogin"
+        android:layout_margin="12dp"
+        android:hint="Email Address" />
 
-        <EditText
-            android:id="@+id/edtLoginEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/mainText"
-            android:hint="Enter Email Address" />
-
-        <EditText
-            android:id="@+id/edtLoginPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edtLoginEmail"
-            android:hint="Enter Password" />
-
-        <TextView
-            android:id="@+id/left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edtLoginPassword"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="6dp"
-            android:text="Left"
-            android:textSize="26sp" />
-
-        <TextView
-            android:id="@+id/right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edtLoginPassword"
-            android:layout_alignParentRight="true"
-            android:layout_margin="6dp"
-            android:layout_toRightOf="@id/left"
-            android:text="Right"
-            android:textSize="26sp" />
-
-    </RelativeLayout>
+    <EditText
+        android:id="@+id/loginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginEmail"
+        android:layout_margin="12dp"
+        android:hint="Password" />
 
     <Button
+        android:id="@+id/btnLoginUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="12dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/blue"
         android:text="Login" />
 
 </RelativeLayout>
