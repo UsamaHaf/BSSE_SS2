@@ -3,6 +3,7 @@ package com.usama.uos.bssess2
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.usama.uos.bssess2.Fragments.UserProfileFragment
 class HomePageActivity : AppCompatActivity() {
 
    lateinit var btnOpenSideMenu: ImageView
+   lateinit var txtAppBarTitle: TextView
    lateinit var myNavigationView: NavigationView
    lateinit var mainDrawerLayout: DrawerLayout
 
@@ -26,6 +28,7 @@ class HomePageActivity : AppCompatActivity() {
       mainDrawerLayout = findViewById(R.id.mainDrawerLayout)
       myNavigationView = findViewById(R.id.myNavigationView)
       btnOpenSideMenu = findViewById(R.id.btnOpenSideMenu)
+      txtAppBarTitle = findViewById(R.id.txtAppBarTitle)
 
       mainDrawerLayout.closeDrawer(GravityCompat.START)
       btnOpenSideMenu.setOnClickListener {
@@ -36,14 +39,17 @@ class HomePageActivity : AppCompatActivity() {
       mainDrawerLayout.addDrawerListener(toggle)
       toggle.syncState()
 
+      setFragment(UserProfileFragment() , "User Profile Fragment")
+
+
       myNavigationView.setNavigationItemSelectedListener { menuItems ->
          when (menuItems.itemId) {
             R.id.userProfile -> {
-               setFragment(UserProfileFragment() , "")
+               setFragment(UserProfileFragment() , "User Profile Fragment")
             }
 
             R.id.aboutUs -> {
-               setFragment(AboutUsFragment() , "")
+               setFragment(AboutUsFragment() , "About Us Fragment")
             }
 
             R.id.logoutUser -> {
@@ -67,6 +73,9 @@ class HomePageActivity : AppCompatActivity() {
          .replace(R.id.fragmentContainer , fragment)
          .addToBackStack(null)
          .commit()
+
+      txtAppBarTitle.text = title
+
       mainDrawerLayout.closeDrawer(GravityCompat.START)
    }
 
