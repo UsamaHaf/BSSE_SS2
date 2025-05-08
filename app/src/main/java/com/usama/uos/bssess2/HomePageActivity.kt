@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.usama.uos.bssess2.Fragments.AboutUsFragment
 import com.usama.uos.bssess2.Fragments.UserProfileFragment
 
@@ -20,10 +21,13 @@ class HomePageActivity : AppCompatActivity() {
    lateinit var txtAppBarTitle: TextView
    lateinit var myNavigationView: NavigationView
    lateinit var mainDrawerLayout: DrawerLayout
+   lateinit var firebaseAuth: FirebaseAuth
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_home_page)
+
+      firebaseAuth = FirebaseAuth.getInstance()
 
       mainDrawerLayout = findViewById(R.id.mainDrawerLayout)
       myNavigationView = findViewById(R.id.myNavigationView)
@@ -39,6 +43,11 @@ class HomePageActivity : AppCompatActivity() {
       mainDrawerLayout.addDrawerListener(toggle)
       toggle.syncState()
 
+      val headview = myNavigationView.getHeaderView(0)
+      val headerEmailAddress = headview.findViewById<TextView>(R.id.headerEmailAddress)
+      headerEmailAddress.text = firebaseAuth.currentUser?.email
+
+
       setFragment(UserProfileFragment() , "User Profile Fragment")
 
 
@@ -53,6 +62,13 @@ class HomePageActivity : AppCompatActivity() {
             }
 
             R.id.logoutUser -> {
+
+               firebaseAuth.signOut()
+               Toast.makeText(this@HomePageActivity , "Logout Successful", Toast.LENGTH_SHORT).show()
+               startActivity(Intent(this@HomePageActivity , LoginActivity::class.java))
+
+
+
             }
          }
          true

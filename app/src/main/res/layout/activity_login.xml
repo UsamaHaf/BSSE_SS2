@@ -31,6 +31,15 @@
         android:layout_margin="12dp"
         android:hint="Password" />
 
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/pbLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnLoginUser"
+        android:layout_centerInParent="true" />
+
+
     <Button
         android:id="@+id/btnLoginUser"
         android:layout_width="match_parent"
@@ -40,5 +49,16 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/blue"
         android:text="Login" />
+
+    <Button
+        android:id="@+id/btnCreateNewAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLoginUser"
+        android:layout_centerInParent="true"
+        android:layout_margin="12dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/blue"
+        android:text="Create New Account! SignUp" />
 
 </RelativeLayout>

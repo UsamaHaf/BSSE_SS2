@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     android:padding="4dp"
     tools:context=".SignupActivity">
 
     <TextView
-        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Please fill the form to Signup"
         android:textAllCaps="true"
+        android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -83,6 +83,13 @@
         android:padding="6dp"
         android:textColorHint="@color/white" />
 
+    <ProgressBar
+        android:id="@+id/pbSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
@@ -90,5 +97,14 @@
         android:layout_margin="2dp"
         android:backgroundTint="@color/rust"
         android:text="Signup" />
+
+
+    <Button
+        android:id="@+id/btnAlreadyAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:backgroundTint="@color/rust"
+        android:text="Alread Have an Account" />
 
 </LinearLayout>
