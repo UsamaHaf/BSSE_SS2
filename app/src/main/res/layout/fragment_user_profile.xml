@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.UserProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:textSize="20sp"
-        android:gravity="center"
-        android:layout_gravity="center"
+        android:id="@+id/txtUserData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User Proifle Fragment" />
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="No Data Yet!!"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/pbUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtUserData"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUsers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_items_users" />
+
+
+</RelativeLayout>

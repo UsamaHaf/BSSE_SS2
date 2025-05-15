@@ -9,6 +9,9 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.usama.uos.bssess2.Models.UserModel
 
 class SignupActivity : AppCompatActivity() {
 
@@ -21,10 +24,12 @@ class SignupActivity : AppCompatActivity() {
    private lateinit var btnAlreadyAccount: Button
    lateinit var firebaseAuth: FirebaseAuth
    lateinit var pbSignUp: ProgressBar
+   lateinit var databaseReference: DatabaseReference
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_signup)
+
 
       firebaseAuth = FirebaseAuth.getInstance()
 
@@ -69,37 +74,63 @@ class SignupActivity : AppCompatActivity() {
       } else if (strLastName.isEmpty()) {
          Toast.makeText(this@SignupActivity, "Enter Last Name", Toast.LENGTH_SHORT).show()
 
-      } else if (strPassword.isEmpty() && strPassword.equals("1232e")) {
+      } else if (strPassword.isEmpty() ) {
          Toast.makeText(this@SignupActivity, "Enter Password", Toast.LENGTH_SHORT).show()
 
       } else {
 
          pbSignUp.visibility = ProgressBar.VISIBLE
 
-         userSignUpFirebase(strEmail, strPassword)
+         userSignUpFirebase(strEmail, strPassword , strPhoneNumber , strFName , strLastName)
 
       }
    }
 
-   private fun userSignUpFirebase(strEmail: String, strPassword: String) {
-
+   private fun userSignUpFirebase(strEmail: String, strPassword: String, strPhoneNumber: String, strFName: String, strLastName: String) {
       try {
-
          firebaseAuth.createUserWithEmailAndPassword(strEmail, strPassword)
             .addOnCompleteListener { task ->
 
                if (task.isSuccessful) {
-                  Toast.makeText(this@SignupActivity, "SignUp Successful BSSE SS2", Toast.LENGTH_LONG)
-                     .show()
-                  startActivity(Intent(this@SignupActivity, LoginActivity::class.java))
-                  pbSignUp.visibility = ProgressBar.GONE
+                  try{
+                     val userModel = UserModel()
+
+                     //val uniqueID = databaseReference.key
+
+                     userModel.userEmailAddress = strEmail
+                     userModel.userPhoneNumber = strPhoneNumber
+                     userModel.userFirstName = strFName
+                     userModel.userLastName = strLastName
+                     userModel.userPassword = strPassword
+                     userModel.userUID = firebaseAuth.currentUser?.uid
+
+                     FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.currentUser?.uid!!)
+                        .setValue(userModel).addOnCompleteListener { userTask->
+
+                           if(userTask.isSuccessful){
+                              Toast.makeText(this@SignupActivity, "SignUp Successful BSSE SS2", Toast.LENGTH_LONG).show()
+                              startActivity(Intent(this@SignupActivity, LoginActivity::class.java))
+                              pbSignUp.visibility = ProgressBar.GONE
+                           }else{
+                              Toast.makeText(this@SignupActivity, "Failed: ${userTask.exception}" ,  Toast.LENGTH_LONG).show()
+
+                           }
+
+                        }
+
+
+
+
+                  }catch (e:Exception){
+                     Log.e("DBInsertError" , e.toString())
+                  }
+
+
 
 
                } else {
                   pbSignUp.visibility = ProgressBar.GONE
-
-                  Toast.makeText(this@SignupActivity, "SignUp Failed: ${task.exception}", Toast.LENGTH_LONG)
-                     .show()
+                  Toast.makeText(this@SignupActivity, "SignUp Failed: ${task.exception}", Toast.LENGTH_LONG).show()
                   Log.e("SignUpError", "userSignUpFirebase: ${task.exception}")
                }
 
