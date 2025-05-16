@@ -14,12 +14,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import com.usama.uos.bssess2.Adapter.UserAdapter
+import com.usama.uos.bssess2.Interfaces.UserItemsInterface
 import com.usama.uos.bssess2.Models.UserModel
 import com.usama.uos.bssess2.R
 
 
-class UserProfileFragment : Fragment() {
+class UserProfileFragment : Fragment(), UserItemsInterface {
 
    lateinit var rvUsers: RecyclerView
    lateinit var pbUsers: ProgressBar
@@ -52,23 +54,21 @@ class UserProfileFragment : Fragment() {
          override fun onDataChange(snapshot: DataSnapshot) {
             try {
                userDataArrayList = ArrayList()
-               for (eachUser in snapshot.children){
-                  val key = eachUser.key.toString()
-
-                  val userModel:UserModel? = eachUser.getValue(UserModel::class.java)
-                  //userModel?.userUID = key
-                   userDataArrayList.add(userModel!!)
+               for (eachUser in snapshot.children) {
+                  val userModel: UserModel? = eachUser.getValue(UserModel::class.java)
+                  userDataArrayList.add(userModel!!)
 
                }
-               if(userDataArrayList.isEmpty() || userDataArrayList.size == 0){
+               if (userDataArrayList.isEmpty() || userDataArrayList.size == 0) {
                   txtUserData.visibility = TextView.VISIBLE
                   pbUsers.visibility = ProgressBar.GONE
-               }else{
-                  userAdapter = UserAdapter(userDataArrayList , requireActivity())
+               } else {
+                  userAdapter =
+                      UserAdapter(userDataArrayList, requireActivity(), this@UserProfileFragment)
                   rvUsers.adapter = userAdapter
                   pbUsers.visibility = ProgressBar.GONE
                }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                Log.e("Error", e.toString())
             }
          }
@@ -80,6 +80,21 @@ class UserProfileFragment : Fragment() {
       })
 
 
+   }
+
+   override fun UserItemsClickListener(view: View?, userModel: UserModel, position: Int) {
+
+      val bundle = Bundle()
+      bundle.putString("UserDetails", Gson().toJson(userModel))
+      val nextFragment = UpdateDataFragment()
+      nextFragment.arguments = bundle
+      setFragment(nextFragment, "")
+
+   }
+
+   fun setFragment(fragment: Fragment, title: String) {
+      requireActivity().supportFragmentManager.beginTransaction()
+         .replace(R.id.fragmentContainer, fragment).addToBackStack(null).commit()
    }
 
 

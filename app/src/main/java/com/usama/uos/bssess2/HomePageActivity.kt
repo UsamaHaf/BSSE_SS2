@@ -12,7 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.usama.uos.bssess2.Fragments.AboutUsFragment
+import com.usama.uos.bssess2.Fragments.UpdateDataFragment
 import com.usama.uos.bssess2.Fragments.UserProfileFragment
 
 class HomePageActivity : AppCompatActivity() {
@@ -58,7 +58,7 @@ class HomePageActivity : AppCompatActivity() {
             }
 
             R.id.aboutUs -> {
-               setFragment(AboutUsFragment() , "About Us Fragment")
+               setFragment(UpdateDataFragment() , "About Us Fragment")
             }
 
             R.id.logoutUser -> {
