@@ -22,7 +22,6 @@ class UpdateDataFragment : Fragment() {
    lateinit var firebaseAuth: FirebaseAuth
 
    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-      // Inflate the layout for this fragment
       val view = inflater.inflate(R.layout.fragment_about_us, container, false)
 
       firebaseAuth = FirebaseAuth.getInstance()
@@ -39,18 +38,14 @@ class UpdateDataFragment : Fragment() {
       val bundle = arguments
       if (bundle != null) {
          userModel = Gson().fromJson(bundle.getString("UserDetails"), UserModel::class.java)
-
          edtUpdateUserName.setText(userModel.userFirstName)
-
       }
-
       btnUpdateData.setOnClickListener {
          val strNewUserName = edtUpdateUserName.text.toString()
-
          FirebaseDatabase.getInstance().getReference("Users")
-            .child(firebaseAuth.currentUser?.uid!!).child("userFirstName").setValue(strNewUserName)
+            .child(userModel.userUID!!).child("userFirstName")
+            .setValue(strNewUserName)
          setFragment(UserProfileFragment())
-
       }
 
 

@@ -83,7 +83,6 @@ class UserProfileFragment : Fragment(), UserItemsInterface {
    }
 
    override fun UserItemsClickListener(view: View?, userModel: UserModel, position: Int) {
-
       val bundle = Bundle()
       bundle.putString("UserDetails", Gson().toJson(userModel))
       val nextFragment = UpdateDataFragment()
@@ -92,7 +91,7 @@ class UserProfileFragment : Fragment(), UserItemsInterface {
 
    }
 
-   fun setFragment(fragment: Fragment, title: String) {
+   private fun setFragment(fragment: Fragment, title: String) {
       requireActivity().supportFragmentManager.beginTransaction()
          .replace(R.id.fragmentContainer, fragment).addToBackStack(null).commit()
    }

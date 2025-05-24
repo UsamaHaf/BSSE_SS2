@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/aboutUs"
-        android:title="About Us" />
+        android:title="Add Products" />
 
     <item
         android:id="@+id/logoutUser"
